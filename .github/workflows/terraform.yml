@@ -9,6 +9,7 @@ on:
       - main
       - develop
       - feature/*
+      - es0215-patch-*
 jobs:
   terraform:
     name: 'Terraform'
