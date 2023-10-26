@@ -1,5 +1,4 @@
 name: delete branch action
-
 on:
   push:
     branches:
