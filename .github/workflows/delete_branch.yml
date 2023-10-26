@@ -6,7 +6,6 @@ on:
       # このアクションはmain または develop ブランチにプッシュされた際にのみ実行されます。
       - main
       - develop
-      - es0215-patch-*
 jobs:
   delete_hook:
     runs-on: ubuntu-latest
