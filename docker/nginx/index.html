@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Docker Blog</title>
+    <style>
+        body {
+            background-color: #f4f4f4;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #7ec8e3; /* 薄い水色に変更 */
+            color: #fff;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        h1 {
+            font-size: 2.5em;
+            margin: 0;
+            margin-top: 10px; /* タイトルの上部マージンを追加 */
+        }
+        .logo {
+            max-height: 50px;
+            margin-bottom: 10px; /* ロゴの下部マージンを追加 */
+        }
+        nav a {
+            margin: 0 10px;
+            color: #fff;
+            text-decoration: none;
+            font-size: 1.2em;
+        }
+        .post {
+            text-align: left;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            max-width: 800px;
+        }
+        .post h2 {
+            color: #007BFF;
+        }
+        .post p {
+            font-size: 1.5em;
+            color: #333;
+        }
+        .comment {
+            background-color: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 20px;
+        }
+        .comment-text {
+            font-size: 0.8em; /* コメントの文字サイズを変更 */
+        }
+        form input {
+            padding: 10px;
+            font-size: 1em;
+        }
+        form input[type="text"] {
+            width: 70%;
+            margin-right: 10px;
+        }
+        form input[type="submit"] {
+            background-color: #007BFF;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        ul li {
+            margin-bottom: 10px;
+        }
+        .page-count {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        /* サイドバーのスタイル */
+        .sidebar {
+            background-color: #eee;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="docker-logo.png" alt="Docker Logo" width="50">
+        </div>
+        <h1>Welcome to My Docker Blog!</h1>
+        <nav>
+            <a href="#categories">Categories</a>
+            <a href="#tags">Tags</a>
+            <a href="#comments">Comments</a>
+            <a href="#search">Search</a>
+            <a href="#archive">Archive</a>
+        </nav>
+    </header>
+
+    <div style="display: flex;">
+        <!-- メインコンテンツ -->
+        <div style="flex: 1; padding: 20px;">
+            <div class="post" id="categories">
+                <h2>カテゴリ: 技術</h2>
+                <h2>記事のタイトル1</h2>
+                <p>記事の本文1</p>
+                <p>投稿日: 2023-09-15</p>
+            </div>
+            <div class="post">
+                <h2>カテゴリ: 山行</h2>
+                <h2>記事のタイトル3</h2>
+                <p>記事の本文3</p>
+                <p>投稿日: 2023-09-17</p>
+            </div>
+            <div class="post">
+                <h2>カテゴリ: 山行</h2>
+                <h2>記事のタイトル4</h2>
+                <p>記事の本文4</p>
+                <p>投稿日: 2023-09-18</p>
+            </div>
+            <div class="post" id="tags">
+                <h2>タグ: Docker</h2>
+                <h2>記事のタイトル2</h2>
+                <p>記事の本文2</p>
+                <p>投稿日: 2023-09-16</p>
+            </div>
+        </div>
+
+        <!-- サイドバー -->
+        <div class="sidebar" style="flex: 0.3;">
+            <div class="post" id="page-views">
+                <h2>ページ表示回数</h2>
+                <p id="page-count">0</p>
+                <p class="page-count">このページは0回表示されました。</p>
+            </div>
+            <div class="post" id="archive">
+                <h2>記事一覧</h2>
+                <ul>
+                    <li><a href="#categories">カテゴリ: 技術</a></li>
+                    <li><a href="#tags">タグ: Docker</a></li>
+                    <li><a href="#archive">カテゴリ: 山行</a></li>
+                    <!-- 他の記事も同様に追加 -->
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ページ表示回数をカウントするJavaScript
+        let pageCount = localStorage.getItem('pageCount');
+        if (!pageCount) {
+            pageCount = 0;
+        } else {
+            pageCount = parseInt(pageCount);
+        }
+        pageCount++;
+        localStorage.setItem('pageCount', pageCount);
+        document.getElementById('page-count').textContent = pageCount;
+        document.querySelector('.page-count').textContent = `このページは${pageCount}回表示されました。`;
+    </script>
+</body>
+</html>
