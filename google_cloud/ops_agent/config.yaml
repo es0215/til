@@ -1,0 +1,17 @@
+logging:
+  receivers:
+    syslog:
+      type: files
+      include_paths:
+      - /var/log/messages
+      - /var/log/syslog
+  processors:
+    exclude_syslog_messages:
+      type: exclude_logs
+      match_any:
+        - 'jsonPayload.message !~ "(err|Err)"'
+  service:
+    pipelines:
+      default_pipeline:
+        receivers: [syslog]
+        processors: [exclude_syslog_messages]
