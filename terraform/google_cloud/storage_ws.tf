@@ -49,7 +49,7 @@ resource "google_storage_bucket" "main" {
 
 module "storages" {
   for_each = toset(local.module_storages)
-  source   = "./modules/google_cloud/storage"
+  source   = "../modules/google_cloud/storage"
 
   project  = local.project
   name     = format("%s-%s", local.project, each.value)
