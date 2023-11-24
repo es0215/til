@@ -1,0 +1,18 @@
+apiVersion: serving.knative.dev/v1
+kind: Service
+metadata:
+  name: my-go-app
+spec:
+  template:
+    metadata:
+      annotations:
+        autoscaling.knative.dev/minScale: "1"
+        autoscaling.knative.dev/maxScale: "5"
+    spec:
+      containers:
+        - image: asia-northeast1-docker.pkg.dev/$PROJECT_ID/${YOUR-REPO}/${YOUR-IMAGE}:latest
+          ports:
+            - containerPort: 8080
+          env:
+            - name: PORT
+              value: "8080"
