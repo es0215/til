@@ -39,8 +39,12 @@ func main() {
 	http.Handle("/metrics", promhttp.Handler())
 	// アプリケーションのメインハンドラーを設定
 	http.HandleFunc("/", handler)
-	// ポート8080でHTTPサーバーを起動
-	http.ListenAndServe(":8080", nil)
+
+	// ポートを動的に取得するための環境変数
+	port := getPort()
+
+	// ポートでHTTPサーバーを起動
+	http.ListenAndServe(":"+port, nil)
 }
 
 // 実際のリクエストを処理するハンドラー
@@ -59,4 +63,24 @@ func handler(w http.ResponseWriter, r *http.Request) {
 	// レスポンスコードとメッセージを返す
 	w.WriteHeader(code)
 	w.Write([]byte("Hello, World!"))
+}
+
+// ポート番号を取得する関数
+func getPort() string {
+	port := "8080" // デフォルトのポート
+
+	// 環境変数からポートが指定されていれば使用
+	if envPort := getEnv("PORT"); envPort != "" {
+		port = envPort
+	}
+
+	return port
+}
+
+// 環境変数を取得する関数
+func getEnv(key string) string {
+	if value, ok := os.LookupEnv(key); ok {
+		return value
+	}
+	return ""
 }
