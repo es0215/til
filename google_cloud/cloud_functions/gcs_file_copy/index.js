@@ -7,7 +7,7 @@ exports.copyFileToAnotherBucket = (event, context, callback) => {
     // トリガーされたバケットとファイル名を取得します
     const file = storage.bucket(event.bucket).file(event.name);
     // ファイルをコピーする先のバケットを指定します
-    const destinationBucket = storage.bucket('woven-proton-402909-gcs-test');
+    const destinationBucket = storage.bucket('your-destination-bucket-name');
     
     // ファイルを新しいバケットにコピーします
     return file.copy(destinationBucket.file(event.name))
