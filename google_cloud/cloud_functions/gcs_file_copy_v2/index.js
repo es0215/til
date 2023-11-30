@@ -22,7 +22,7 @@ exports.copyFileToAnotherBucket = async (event, context, callback) => {
     }
   }
 
-  // 環境変数からGoogle CloudプロジェクトのIDを取得
+  // 環境変数からGoogle CloudプロジェクトのIDを取得(ランタイム環境変数にGCLOUD_PROJECT = ${PROJECT_ID}を設定しておく)
   const projectId = process.env.GCLOUD_PROJECT || (context && context.resource && context.resource.projectId);
 
   if (!projectId) {
