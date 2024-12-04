@@ -2,6 +2,7 @@
 const { Storage } = require('@google-cloud/storage');
 // Cloud Loggingライブラリをインポートします
 const { Logging } = require('@google-cloud/logging');
+const _ = require('lodash');
 // StorageクライアントとLoggingクライアントを初期化します
 const storage = new Storage();
 const logging = new Logging();
@@ -11,7 +12,7 @@ exports.copyFileToAnotherBucket = async (event, context) => {
     // ファイルがアップロードされたバケットの名前を取得します
     const sourceBucketName = event.bucket;
     // 環境変数からGoogle CloudプロジェクトのIDを取得します
-    const projectId = process.env.GCLOUD_PROJECT;
+    const projectId = _.escapeRegExp(process.env.GCLOUD_PROJECT);
     
     // バケット名がパターン「${projectId}-〇〇〇-if」に一致するか確認します
     if (!sourceBucketName.match(`^${projectId}-\\w*-if$`)) {
