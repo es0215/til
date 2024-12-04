@@ -1,4 +1,5 @@
 const { Storage } = require('@google-cloud/storage');
+const _ = require('lodash');
 
 // Cloud Functions からトリガーされるメインの関数
 exports.copyFileToAnotherBucket = async (event, context, callback) => {
@@ -32,7 +33,8 @@ exports.copyFileToAnotherBucket = async (event, context, callback) => {
   }
 
   // バケット名がパターン「${projectId}-〇〇〇-if」に一致するか確認
-  if (!sourceBucketName.match(`^${projectId}-\\w*-if$`)) {
+  const safeProjectId = _.escapeRegExp(projectId);
+  if (!sourceBucketName.match(`^${safeProjectId}-\\w*-if$`)) {
     console.log(`Bucket ${sourceBucketName} does not match the pattern. Exiting.`);
     callback();
     return;
