@@ -1,4 +1,6 @@
 name: delete branch action
+permissions:
+  contents: write
 on:
   push:
     branches:
