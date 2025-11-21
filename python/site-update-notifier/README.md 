@@ -1,0 +1,74 @@
+# site-update-notifier
+
+- 指定した Web サイトの内容変化を検知して、Slack に通知する Python 製の TIL 用サンプルです。
+- 指定 URL の内容を定期的に取得する
+- 前回の取得内容と比較して、変更があれば Slack に通知する
+- Docker コンテナとして動かすこともできる
+
+# ファイル構成
+
+- `app.py`
+  サイトの更新を監視して Slack に通知するメインスクリプトです。
+
+- `requirements.txt`
+  利用している Python ライブラリの一覧です。
+
+- `Dockerfile`
+  このアプリを Docker コンテナとして実行するための定義ファイルです。
+
+- `deploy.md`
+  Docker イメージのビルド＆実行手順をメモしたファイルです。
+
+# 事前準備
+
+Slack 側で Bot トークン（例: xoxb-...）を発行し、通知先チャンネルを用意しておきます。
+利用する主な環境変数は次の通りです。
+
+- `TARGET_URL`
+  監視対象の URL（例: https://example.com）
+
+- `SLACK_API_TOKEN`
+  Slack の Bot トークン
+
+- `SLACK_CHANNEL（任意）`
+  通知先チャンネル名（デフォルト: #general）
+
+- `CHECK_INTERVAL_SECONDS（任意）`
+  監視間隔（秒）。デフォルトは 60 です。
+
+# 実行方法（ローカル）
+
+```bash
+# ディレクトリに移動
+cd til/python/site-update-notifier
+
+# 仮想環境の作成（任意）
+python -m venv .venv
+source .venv/bin/activate  # Windows: .venv\Scripts\activate
+
+# パッケージインストール
+pip install -r requirements.txt
+
+# 環境変数を設定して実行
+export TARGET_URL="https://example.com"
+export SLACK_API_TOKEN="YOUR_API_TOKEN"
+export SLACK_CHANNEL="#general"
+export CHECK_INTERVAL_SECONDS=60
+
+python app.py
+```
+
+# 実行方法（Docker）
+
+```bash
+# イメージをビルド
+docker build -t site_update_notifier .
+
+# コンテナを起動
+docker run \
+  -e TARGET_URL=https://example.com \
+  -e SLACK_API_TOKEN=YOUR_API_TOKEN \
+  -e SLACK_CHANNEL='#general' \
+  -e CHECK_INTERVAL_SECONDS=60 \
+  site_update_notifier
+```
