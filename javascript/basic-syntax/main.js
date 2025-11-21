@@ -1,3 +1,13 @@
+// main.js
+// JavaScript の基本構文をまとめたサンプル
+// - アラート
+// - 変数と計算
+// - 条件分岐
+// - ループ
+// - 関数
+// - 配列
+// - オブジェクト
+
 // アラートを表示する
 alert('こんにちは、世界！');
 
@@ -31,6 +41,7 @@ greet('太郎');
 // 配列を操作する
 let fruits = ['りんご', 'バナナ', 'オレンジ'];
 console.log('最初のフルーツ:', fruits[0]);
+
 fruits.push('イチゴ');
 console.log('新しいフルーツ:', fruits);
 
@@ -41,4 +52,4 @@ let person = {
   age: 30,
 };
 
-console.log(person.firstName + ' ' + person.lastName + 'は' + person.age + '歳です');
+console.log(person.firstName + ' ' + person.lastName + ' は ' + person.age + ' 歳です');
