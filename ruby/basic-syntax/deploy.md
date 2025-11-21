@@ -1,4 +1,4 @@
 デプロイコマンド
 ```
-$ ruby sample.rb
+$ ruby main.rb
 ```
