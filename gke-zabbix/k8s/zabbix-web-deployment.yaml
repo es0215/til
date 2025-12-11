@@ -1,0 +1,63 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-web
+  namespace: monitoring
+  labels:
+    app: zabbix-web
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-web
+  template:
+    metadata:
+      labels:
+        app: zabbix-web
+    spec:
+      containers:
+        - name: zabbix-web
+          image: zabbix/zabbix-web-nginx-pgsql:alpine-7.4-latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8080
+          env:
+            - name: ZBX_SERVER_HOST
+              value: "zabbix-server"
+            - name: ZBX_SERVER_PORT
+              value: "10051"
+            - name: DB_SERVER_HOST
+              value: "zabbix-postgres"
+            - name: DB_SERVER_PORT
+              value: "5432"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: zabbix-db-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zabbix-db-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: POSTGRES_DB
+            - name: PHP_TZ
+              value: "Asia/Tokyo"
+            - name: ZBX_SERVER_NAME
+              value: "Zabbix on GKE"
+          readinessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            httpGet:
+              path: /
+              port: http
+            initialDelaySeconds: 60
+            periodSeconds: 30
