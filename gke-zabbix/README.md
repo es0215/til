@@ -12,11 +12,11 @@ GKE 上で **Zabbix Server + Zabbix Web + PostgreSQL** を動かす最小構成�
 ```
 gke-zabbix/
 └── k8s/
-├── namespace-and-secret.yaml # Namespace と DB 認証用 Secret
-├── postgres-statefulset.yaml # PostgreSQL StatefulSet + Service
-├── zabbix-server-deployment.yaml # Zabbix Server Deployment
-├── zabbix-web-deployment.yaml # Zabbix Web (NGINX + PHP) Deployment
-└── services.yaml # 各サービスの Service 定義
+ ├── namespace-and-secret.yaml # Namespace と DB 認証用 Secret
+ ├── postgres-statefulset.yaml # PostgreSQL StatefulSet + Service
+ ├── zabbix-server-deployment.yaml # Zabbix Server Deployment
+ ├── zabbix-web-deployment.yaml # Zabbix Web (NGINX + PHP) Deployment
+ └── services.yaml # 各サービスの Service 定義
 ```
 
 ## デプロイ方法
