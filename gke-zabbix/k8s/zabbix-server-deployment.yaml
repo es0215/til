@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: zabbix-server
+  namespace: monitoring
+  labels:
+    app: zabbix-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: zabbix-server
+  template:
+    metadata:
+      labels:
+        app: zabbix-server
+    spec:
+      containers:
+        - name: zabbix-server
+          image: zabbix/zabbix-server-pgsql:alpine-7.4-latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: zabbix-trapper
+              containerPort: 10051
+          env:
+            - name: DB_SERVER_HOST
+              value: "zabbix-postgres"
+            - name: DB_SERVER_PORT
+              value: "5432"
+            - name: POSTGRES_USER
+              valueFrom:
+                secretKeyRef:
+                  name: zabbix-db-secret
+                  key: POSTGRES_USER
+            - name: POSTGRES_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: zabbix-db-secret
+                  key: POSTGRES_PASSWORD
+            - name: POSTGRES_DB
+              valueFrom:
+                secretKeyRef:
+                  name: zabbix-db-secret
+                  key: POSTGRES_DB
+            # 必要に応じて SNMP や JavaGateway を有効化する
+            # - name: ZBX_ENABLE_SNMP_TRAPS
+            #   value: "true"
+          readinessProbe:
+            tcpSocket:
+              port: zabbix-trapper
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          livenessProbe:
+            tcpSocket:
+              port: zabbix-trapper
+            initialDelaySeconds: 60
+            periodSeconds: 30
