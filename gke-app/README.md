@@ -19,8 +19,8 @@ gke-app/
 ├── requirements.txt # Python ライブラリ
 ├── .dockerignore
 └── k8s/
-├── deployment.yaml # Deployment（Probe 設定あり）
-└── service.yaml # ClusterIP Service
+ ├── deployment.yaml # Deployment（Probe 設定あり）
+ └── service.yaml # ClusterIP Service
 ```
 
 ## ローカル実行方法
