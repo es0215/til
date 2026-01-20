@@ -25,7 +25,7 @@ nginx/
 docker build -t docker-nginx:dev .
 ```
 
-2. 起動
+### 2. 起動
 
 ```bash
 docker run --rm -p 8080:80 docker-nginx:dev
