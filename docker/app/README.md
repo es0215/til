@@ -74,6 +74,5 @@ requirements.txt は固定化された成果物として管理
 
 ```bash
 pip install pip-tools
-```
-
 pip-compile requirements.in
+```
